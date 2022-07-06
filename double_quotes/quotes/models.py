@@ -11,11 +11,13 @@ class GroupAuthor(models.Model):
 
     class Meta:
         verbose_name = 'Группа авторов'
+        verbose_name_plural = 'Группы авторов'
 
 
 class Author(models.Model):
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
+    full_name = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=100, blank=True)
+    last_name = models.CharField(max_length=100, blank=True)
     description = models.TextField(blank=True)
     link = models.URLField(blank=True)
     group = models.ForeignKey(
@@ -25,18 +27,21 @@ class Author(models.Model):
     )
 
     def __str__(self):
-        return self.last_name
+        return self.full_name
 
 
 class QuoteSource(models.Model):
     title = models.CharField(max_length=100, unique=True)
     description = models.TextField(blank=True)
-    link = models.URLField()
+    link = models.URLField(blank=True)
     author = models.ForeignKey(
         Author,
         on_delete=models.CASCADE,
         related_name='quote_sources'
     )
+
+    def __str__(self):
+        return self.title
 
 
 class Quote(models.Model):
@@ -46,7 +51,7 @@ class Quote(models.Model):
         on_delete=models.CASCADE,
         related_name='quotes'
     )
-    date = models.DateField()
+    year = models.IntegerField()
     author = models.ForeignKey(
         Author,
         on_delete=models.CASCADE,
@@ -54,4 +59,4 @@ class Quote(models.Model):
     )
 
     def __str__(self):
-        return self.text[:15]
+        return self.text[:50]+'...'

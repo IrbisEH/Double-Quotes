@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('users.urls', namespace='users')),
     path('auth/', include('django.contrib.auth.urls')),
-    path('', TemplateView.as_view(template_name='home.html'), name='home')
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('quote/', include('quotes.urls', namespace='quote'))
 ]

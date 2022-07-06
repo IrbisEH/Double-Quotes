@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Лента цитат
+{% endblock title %}
+
+{% block content %}
+<div class="col-md-8 offset-md-2">
+    {% for quote in object_list %}
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{ quote.source }}</h4>
+                <h5>{{ quote.text|linebreaks }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ quote.author }}</h6>
+            </div>
+        </div>
+        <br>
+    {% endfor %}
+</div>
+{% endblock content %}
