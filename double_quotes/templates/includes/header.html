@@ -4,14 +4,20 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
 
-                <!-- ВСТАВИТЬ ССЫЛКУ -->
                 <li class="nav-item">
                     <a class="nav-link text-light active" aria-current="page" href="{% url 'quotes:quotes_list' %}">Лента</a>
                 </li>
-
-                <!-- ВСТАВИТЬ ССЫЛКУ -->
                 <li class="nav-item">
-                    <a class="nav-link text-light active" aria-current="page" href="">Разработчики</a>
+                    <a class="nav-link text-light active" aria-current="page" href="{% url 'quotes:author_create' %}">+ автор</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light active" aria-current="page" href="{% url 'quotes:source_create' %}">+ источник</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light active" aria-current="page" href="{% url 'quotes:quote_create' %}">+ цитата</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light active" aria-current="page" href="{% url 'quotes:quote_create' %}">+ цитата</a>
                 </li>
             </ul>
         </div>

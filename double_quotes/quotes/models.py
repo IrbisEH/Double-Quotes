@@ -45,7 +45,7 @@ class QuoteSource(models.Model):
 
 
 class Quote(models.Model):
-    text = models.TextField()
+    text = models.TextField(unique=True)
     source = models.ForeignKey(
         QuoteSource,
         on_delete=models.CASCADE,

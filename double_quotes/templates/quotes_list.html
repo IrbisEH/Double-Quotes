@@ -5,16 +5,23 @@
 {% endblock title %}
 
 {% block content %}
-<div class="col-md-8 offset-md-2">
-    {% for quote in object_list %}
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">{{ quote.source }}</h4>
-                <h5>{{ quote.text|linebreaks }}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{ quote.author }}</h6>
-            </div>
-        </div>
-        <br>
-    {% endfor %}
+<div class="col-md-8 offset-md-2 p-5">
+    <div>
+<!--        <br>-->
+<!--        <h2>Лента цитат</h2>-->
+<!--        <br>-->
+            {% for quote in object_list %}
+                <div class="card shadow p-3 mb-3 bg-body rounded">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ quote.source }}</h4>
+                        <div class="callout p-3">
+                        <h5>{{ quote.text|linebreaks }}</h5>
+                        </div>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ quote.year }} | {{ quote.author }}</h6>
+                    </div>
+                </div>
+                <br>
+            {% endfor %}
+    </div>
 </div>
 {% endblock content %}
