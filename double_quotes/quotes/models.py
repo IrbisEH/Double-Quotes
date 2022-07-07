@@ -3,7 +3,7 @@ from django.db import models
 
 class GroupAuthor(models.Model):
     title = models.CharField(max_length=50)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(max_length=50, unique=True)
     description = models.TextField(blank=True)
 
     def __str__(self):
@@ -16,18 +16,20 @@ class GroupAuthor(models.Model):
 
 class Author(models.Model):
     full_name = models.CharField(max_length=50)
-    first_name = models.CharField(max_length=100, blank=True)
-    last_name = models.CharField(max_length=100, blank=True)
     description = models.TextField(blank=True)
     link = models.URLField(blank=True)
     group = models.ForeignKey(
         GroupAuthor,
         on_delete=models.CASCADE,
-        related_name='authors'
+        related_name='authors',
     )
 
     def __str__(self):
         return self.full_name
+
+    class Meta:
+        verbose_name = 'Автор'
+        verbose_name_plural = 'Авторы'
 
 
 class QuoteSource(models.Model):
@@ -43,6 +45,9 @@ class QuoteSource(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name = 'Источник'
+        verbose_name_plural = 'Источники'
 
 class Quote(models.Model):
     text = models.TextField(unique=True)
