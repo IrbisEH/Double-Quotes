@@ -2,12 +2,22 @@
 {% block title %}{{ author }}{% endblock title %}
 {% block content %}
 <div class="col-md-8 offset-md-2 p-5">
-
     <div class="card shadow p-3 mb-3 bg-body rounded">
         <div class="card-body">
             <h4 class="card-title">{{ author }}</h4>
                 <h5>{{ author.description|linebreaks }}</h5>
         </div>
     </div>
+    {% for quote in quotes %}
+        <div class="card shadow p-3 mb-3 bg-body rounded">
+            <div class="card-body">
+                    <div class="callout p-2">
+                        <h5>{{ quote.text|linebreaks }}</h5>
+                    </div>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ quote.year }} | {{ quote.source }}</h6>
+            </div>
+        </div>
+
+    {% endfor %}
 </div>
 {% endblock content %}

@@ -34,9 +34,10 @@ class SourceCreateView(CreateView):
 
 def AuthorDetailView(request, author_pk):
     author = get_object_or_404(Author, pk=author_pk)
-    # author_quotes =
+    author_quotes = Quote.objects.all().filter(author=author)
     template = 'author_detail.html'
     context = {
-        'author': author
+        'author': author,
+        'quotes': author_quotes
     }
     return render(request, template, context)
