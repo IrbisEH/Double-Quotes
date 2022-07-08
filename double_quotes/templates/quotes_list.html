@@ -17,7 +17,9 @@
                         <div class="callout p-3">
                         <h5>{{ quote.text|linebreaks }}</h5>
                         </div>
-                        <h6 class="card-subtitle mb-2 text-muted">{{ quote.year }} | {{ quote.author }}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            {{ quote.year }} | <a href="{% url 'quotes:author_detail' quote.author.pk %}">{{ quote.author }}</a>
+                        </h6>
                     </div>
                 </div>
                 <br>
