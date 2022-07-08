@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load my_tags %}
 {% block title %}Цитатник Dоuble Quotes{% endblock title %}
 
 {% block content %}
@@ -11,6 +11,12 @@
                     <h1>Цитатник Double Quotes</h1>
                     <br>
                     <h2>Сохрани любимые цитаты</h2>
+                    <br>
+                    <ul>
+                        <li><a>Всего цитат: {% total_quotes %}</a></li>
+                        <li><a>Всего авторов: {% total_authors %}</a></li>
+                        <li><a>Всего источников: {% total_quote_sources %}</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
