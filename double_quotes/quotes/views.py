@@ -4,6 +4,7 @@ from django.urls import reverse, reverse_lazy
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 
 from .models import Quote, Author, QuoteSource
+from .forms import QuoteForm, AuthorForm, QuoteSourceForm
 
 
 class QuotesListView(ListView):
@@ -39,5 +40,51 @@ def AuthorDetailView(request, author_pk):
     context = {
         'author': author,
         'quotes': author_quotes
+    }
+    return render(request, template, context)
+
+
+def create_all_view(request):
+    template = 'create_all.html'
+
+    add_quote = False
+    add_author = False
+    add_source_quote = False
+
+    if request.method == 'POST':
+        if 'btn_create_quote' in request.POST:
+            quote_form = QuoteForm(request.POST)
+            if quote_form.is_valid:
+                quote_form.save()
+                add_quote = True
+            quote_form = QuoteForm
+            author_form = AuthorForm
+            quote_source_form = QuoteSourceForm
+        elif 'btn_create_author' in request.POST:
+            author_form = AuthorForm(request.POST)
+            if author_form.is_valid:
+                author_form.save()
+                add_author = True
+            quote_form = QuoteForm
+            quote_source_form = QuoteSourceForm
+        elif 'btn_create_source_quote' in request.POST:
+            quote_source_form = QuoteSourceForm(request.POST)
+            if quote_source_form.is_valid:
+                quote_source_form.save()
+                add_source_quote = True
+            quote_form = QuoteForm
+            author_form = AuthorForm
+    else:
+        quote_form = QuoteForm
+        author_form = AuthorForm
+        quote_source_form = QuoteSourceForm
+
+    context = {
+        'quote_form': quote_form,
+        'author_form': author_form,
+        'quote_source_form': quote_source_form,
+        'add_quote': add_quote,
+        'add_author': add_author,
+        'add_source_quote': add_source_quote
     }
     return render(request, template, context)

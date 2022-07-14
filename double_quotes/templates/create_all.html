@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% block title %}Добавить запись{% endblock title %}
+{% block content %}
+<div class="container py-3">
+    <div class="row justify-content-center">
+        <div class="col-md-8 p-5">
+            <div class="card">
+                <div class="card-header">
+                    Создать цитату
+                </div>
+                {% if add_quote %}
+                    <div class="card-body">
+                        <h1>Цитата добавлена</h1>
+                    </div>
+                {% else %}
+                <div class="card-body">
+                    <form method="post" action=".">
+                    {% csrf_token %}
+                    {% for field in quote_form %}
+                    <div class="form-group row my-3">
+                    <label for="{{ field.id_for_label }}">
+                    {{ field.label }}
+                    {% if field.field.required %}
+                    <span class="reqired text-danger">*</span>
+                    {% endif %}
+                    </label>
+                    {{ field }}
+                    </div>
+                    {% endfor %}
+                    <button type="submit" name="btn_create_quote" class="btn btn-primary">
+                    Создать
+                    </button>
+                    </form>
+                </div>
+                {% endif %}
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                    aria-controls="flush-collapseOne">
+                                  Добавить нового автора
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                             data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                {% if add_author %}
+                                    Автор добавлен
+                                {% else %}
+                                <form method="post" action=".">
+                                {% csrf_token %}
+                                {% for field in author_form %}
+                                <div class="form-group row my-3">
+                                <label for="{{ field.id_for_label }}">
+                                {{ field.label }}
+                                {% if field.field.required %}
+                                <span class="reqired text-danger">*</span>
+                                {% endif %}
+                                </label>
+                                {{ field }}
+                                </div>
+                                {% endfor %}
+                                <button type="submit" name="btn_create_author" class="btn btn-primary">
+                                Добавить
+                                </button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% if add_source_quote %}
+                        <div class="alert alert-success" role="alert">
+                            Источник добавлен
+                        </div>
+                    {% else %}
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                        aria-controls="flush-collapseTwo">
+                                    Добавить новый источник
+                                </button>
+                            </h2>
+                            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+                                 data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <form method="post" action=".">
+                                    {% csrf_token %}
+                                    {% for field in quote_source_form %}
+                                    <div class="form-group row my-3">
+                                    <label for="{{ field.id_for_label }}">
+                                    {{ field.label }}
+                                    {% if field.field.required %}
+                                    <span class="reqired text-danger">*</span>
+                                    {% endif %}
+                                    </label>
+                                    {{ field }}
+                                    </div>
+                                    {% endfor %}
+                                    <button type="submit" name="btn_create_source_quote" class="btn btn-primary">
+                                    Создать
+                                    </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
