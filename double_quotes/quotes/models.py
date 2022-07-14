@@ -49,6 +49,7 @@ class QuoteSource(models.Model):
         verbose_name = 'Источник'
         verbose_name_plural = 'Источники'
 
+
 class Quote(models.Model):
     text = models.TextField(unique=True)
     source = models.ForeignKey(
