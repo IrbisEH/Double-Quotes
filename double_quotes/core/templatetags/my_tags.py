@@ -23,3 +23,5 @@ def total_quote_sources():
     total = QuoteSource.objects.count()
     return total
 
+
+
