@@ -5,20 +5,25 @@
 {% block content %}
 <div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-md-8 p-5">
+        <div class="col-md-5 p-5">
             <div class="card">
                 <div class="card-body">
-                    <h1>Цитатник Double Quotes</h1>
-                    <br>
-                    <h2>Сохрани любимые цитаты</h2>
-                    <br>
+                    <h1>Double Quotes</h1>
                     <ul>
                         <li><a>Всего цитат: {% total_quotes %}</a></li>
                         <li><a>Всего авторов: {% total_authors %}</a></li>
                         <li><a>Всего источников: {% total_quote_sources %}</a></li>
                     </ul>
-                    <a href="{% url 'quotes:create_all' %}">Создать запись</a>
                 </div>
+                {% if user.is_authenticated %}
+                    {% if user.is_staff %}
+                        <a href="{% url 'users:signup' %}" class="btn btn-outline-dark ">Создать запись</a>
+                        <a href="{% url 'quotes:quotes_list' %}" class="btn btn-outline-dark ">Открыть ленту</a>
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'users:login' %}" class="btn btn-outline-dark">Войти</a>
+                    <a href="{% url 'users:signup' %}" class="btn btn-outline-dark">Зарегистрироваться</a>
+                {% endif %}
             </div>
         </div>
     </div>

@@ -85,9 +85,9 @@ def create_all_view(request):
             quote_form = QuoteForm
             author_form = AuthorForm
     else:
-        quote_form = QuoteForm
-        author_form = AuthorForm
-        quote_source_form = QuoteSourceForm
+        quote_form = QuoteForm()
+        author_form = AuthorForm()
+        quote_source_form = QuoteSourceForm()
 
     context = {
         'quote_form': quote_form,
