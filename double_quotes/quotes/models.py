@@ -18,11 +18,13 @@ class Author(models.Model):
     full_name = models.CharField(max_length=50)
     description = models.TextField(blank=True)
     link = models.URLField(blank=True)
+
     group = models.ForeignKey(
         GroupAuthor,
         on_delete=models.CASCADE,
         related_name='authors',
     )
+    image = models.ImageField(upload_to='images/authors/', blank=True)
 
     def __str__(self):
         return self.full_name
@@ -63,6 +65,14 @@ class Quote(models.Model):
         on_delete=models.CASCADE,
         related_name='quotes'
     )
+    created = models.DateTimeField(
+        auto_now_add=True
+    )
 
     def __str__(self):
         return self.text[:50]+'...'
+
+    class Meta:
+        verbose_name = 'Цитата'
+        verbose_name_plural = 'Цитаты'
+        ordering = ('-created',)

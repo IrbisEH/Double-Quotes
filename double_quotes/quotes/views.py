@@ -11,6 +11,16 @@ class QuotesListView(ListView):
     model = Quote
     template_name = 'quotes_list.html'
 
+def quote_detail(request, id):
+    quote = Quote.objects.get(id=id)
+    template_name = 'quote_detail.html'
+    context = {
+        'quote': quote
+    }
+    return render(request, template_name, context)
+
+
+
 
 class QuoteCreateView(CreateView):
     model = Quote
@@ -23,7 +33,7 @@ class AuthorCreateView(CreateView):
     model = Author
     template_name = 'author_create.html'
     success_url = reverse_lazy('qoutes:quotes_list')
-    fields = ['full_name', 'description', 'link', 'group']
+    fields = ['full_name', 'image', 'description', 'link', 'group']
 
 
 class SourceCreateView(CreateView):
@@ -33,8 +43,8 @@ class SourceCreateView(CreateView):
     fields = ['title', 'description', 'link', 'author']
 
 
-def AuthorDetailView(request, author_pk):
-    author = get_object_or_404(Author, pk=author_pk)
+def author_detail(request, id):
+    author = get_object_or_404(Author, id=id)
     author_quotes = Quote.objects.all().filter(author=author)
     template = 'author_detail.html'
     context = {

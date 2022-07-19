@@ -6,7 +6,7 @@ from .models import Author, QuoteSource, Quote
 class AuthorForm(ModelForm):
     class Meta:
         model = Author
-        fields = ['full_name', 'description', 'link', 'group']
+        fields = ['full_name', 'image', 'description', 'link', 'group']
 
 
 class QuoteSourceForm(ModelForm):

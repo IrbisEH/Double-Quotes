@@ -25,6 +25,8 @@ SECRET_KEY = 'django-insecure-!ez$=kzbw(*@y2-#c650j1f*_(5c$tb)w7yyq-83-b(iqi6jg(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# THUMBNAIL_DEBUG = True
+
 ALLOWED_HOSTS = []
 
 
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'users.apps.UsersConfig',
     'quotes.apps.QuotesConfig',
+    'sorl.thumbnail',
 ]
 
 MIDDLEWARE = [
@@ -120,7 +123,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
