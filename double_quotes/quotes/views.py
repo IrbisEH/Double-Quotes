@@ -11,6 +11,10 @@ class QuotesListView(ListView):
     model = Quote
     template_name = 'quotes_list.html'
 
+class AuthorsListView(ListView):
+    model = Author
+    template_name = 'authors_list.html'
+
 def quote_detail(request, id):
     quote = Quote.objects.get(id=id)
     template_name = 'quote_detail.html'
@@ -32,7 +36,7 @@ class QuoteCreateView(CreateView):
 class AuthorCreateView(CreateView):
     model = Author
     template_name = 'author_create.html'
-    success_url = reverse_lazy('qoutes:quotes_list')
+    success_url = reverse_lazy('quotes:quotes_list')
     fields = ['full_name', 'image', 'description', 'link', 'group']
 
 

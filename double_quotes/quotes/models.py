@@ -15,7 +15,7 @@ class GroupAuthor(models.Model):
 
 
 class Author(models.Model):
-    full_name = models.CharField(max_length=50)
+    full_name = models.CharField(max_length=50, unique=True)
     description = models.TextField(blank=True)
     link = models.URLField(blank=True)
 
