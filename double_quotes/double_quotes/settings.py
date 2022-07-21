@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True
 THUMBNAIL_DEBUG = True
 
-ALLOWED_HOSTS = ['51.250.109.204', '127.0.0.1', 'localhost', 'doublequote.ddns.net']
+ALLOWED_HOSTS = ['130.193.53.154', '127.0.0.1', 'localhost', 'doublequote.ddns.net']
 
 
 # Application definition
