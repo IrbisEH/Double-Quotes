@@ -30,7 +30,7 @@ services:
   volumes:
    - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
    - ./nginx/ssl/double-quote.crt:/etc/nginx/ssl/double-quote.crt
-   - ./nginx/ssl/double-quote.key:/etc/nginx/double-quote.key
+   - ./nginx/ssl/double-quote.key:/etc/nginx/ssl/double-quote.key
    - static_value:/var/html/static/
    - media_value:/var/html/media/
   depends_on:
