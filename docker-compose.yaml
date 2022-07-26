@@ -29,7 +29,8 @@ services:
    - "443:443"
   volumes:
    - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-   - ./nginx/ssl:/etc/ssl
+   - ./nginx/ssl/double-quote.crt:/etc/ssl/double-quote.crt
+   - ./nginx/ssl/double-quote.key:/etc/ssl/double-quote.key
    - static_value:/var/html/static/
    - media_value:/var/html/media/
   depends_on:
