@@ -27,7 +27,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECRET_KEY = 'django-insecure-!ez$=kzbw(*@y2-#c650j1f*_(5c$tb)w7yyq-83-b(iqi6jg('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 THUMBNAIL_DEBUG = True
 
 ALLOWED_HOSTS = ['158.160.0.195', '127.0.0.1', 'localhost', 'doublequote.ddns.net']
