@@ -102,3 +102,11 @@ def create_all_view(request):
         'add_source_quote': add_source_quote
     }
     return render(request, template, context)
+
+def check_img(request):
+    author = Author.objects.get(id=1)
+    template = 'check_img.html'
+    context = {
+        'author': author
+    }
+    return render(request, template, context)

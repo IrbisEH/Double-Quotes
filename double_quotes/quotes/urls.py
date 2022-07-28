@@ -22,4 +22,5 @@ urlpatterns = [
     path('author_create/', AuthorCreateView.as_view(), name='author_create'),
     path('authors_list/', AuthorsListView.as_view(), name='authors_list'),
     path('source_create/', SourceCreateView.as_view(), name='source_create'),
+    path('check_img/', views.check_img, name='check_img')
 ]

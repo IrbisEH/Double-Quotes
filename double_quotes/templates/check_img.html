@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+
+{% block title %}{{ author }}{% endblock title %}
+
+{% block content %}
+    <h1>Ниже с thumbnail</h1>
+        {% thumbnail author.image "180x250" as im %}
+        <img src="{{ im.url }}">
+        {% endthumbnail %}
+    <h1>Ниже без thumbnail</h1>
+
+    <img src="{{ author.image }}">
+
+
+{% endblock content %}
