@@ -1,33 +1,50 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load my_tags %}
-{% block title %}Цитатник Dоuble Quotes{% endblock title %}
+{% load thumbnail %}
+{% block title %}Главная{% endblock title %}
 
 {% block content %}
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-5 p-5">
-            <div class="card">
-                <div class="card-body">
-                    <h1>Double Quotes</h1>
-                    <ul>
-                        <li><a>Всего цитат: {% total_quotes %}</a></li>
-                        <li><a>Всего авторов: {% total_authors %}</a></li>
-                        <li><a>Всего источников: {% total_quote_sources %}</a></li>
-                    </ul>
-                </div>
-                {% if user.is_authenticated %}
-                    <a href="{% url 'quotes:quotes_list' %}" class="btn btn-outline-dark ">Открыть ленту</a>
-                    {% if user.is_staff %}
-                        <a href="{% url 'quotes:author_create' %}" class="btn btn-outline-dark ">Добавить автора</a>
-                        <a href="{% url 'quotes:source_create' %}" class="btn btn-outline-dark ">Добавить источник</a>
-                        <a href="{% url 'quotes:quote_create' %}" class="btn btn-outline-dark ">Добавить цитату</a>
-                    {% endif %}
-                {% else %}
-                    <a href="{% url 'users:login' %}" class="btn btn-outline-dark">Войти</a>
-                    <a href="{% url 'users:signup' %}" class="btn btn-outline-dark">Зарегистрироваться</a>
-                {% endif %}
+    <section id="home">
+        <div class="home-container">
+            <h6 class="text-muted">учебный Django проект</h6>
+            <h1>Double Quotes</h1>
+            <h2>cервис с любимыми цитатами</h2>
+            <div class="stat">
+                <a>цитат: {% total_quotes %}</a>
+                <a>авторов: {% total_authors %}</a>
+                <a>источников: {% total_quote_sources %}</a>
             </div>
         </div>
-    </div>
-</div>
+    </section>
+    <section id="authors" class="authors section-bg">
+        <div class="container">
+            <div class="row">
+                {% for author in authors %}
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                        <div class="card">
+                            <a href="{% url 'quotes:author_detail' author.pk %}">
+                            {% thumbnail author.image "600x400" as im %}
+                            <img src="{{ im.url }}" class="card-img-top">
+                            {% endthumbnail %}
+                            <div class="card-icon">
+                                <i class='bx bxs-quote-alt-left'></i>
+                            </div>
+                            </a>
+                            <div class="card-body">
+                                <h4 class="card-title">{{ author.full_name }}</h4>
+                                <p class="card-text">{{ author.description|truncatewords:28|linebreaks }}</p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">цитат: {{ author.quotes.count }}</small>
+                                <small class="text-muted">источников: {% total_quote_sources %}</small>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
 {% endblock content %}
