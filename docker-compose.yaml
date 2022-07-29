@@ -29,6 +29,8 @@ services:
    - "443:443"
   volumes:
    - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+   - ./dqs.crt:/etc/nginx/ssl/dqs.crt
+   - ./dqs.key:/etc/nginx/ssl/dqs.key
    - ./dq.crt:/etc/nginx/ssl/dq.crt
    - ./dq.key:/etc/nginx/ssl/dq.key
    - static_value:/var/html/static/
