@@ -19,6 +19,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     '158.160.0.195',
+    'double-quotes.ru',
     'double-quote.ru',
     'web'
 ]
