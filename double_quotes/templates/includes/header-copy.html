@@ -1,31 +1,5 @@
-{#<header class="p-3 text-bg-dark">#}
-{#    <div class="container">#}
-{#        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">#}
-{#            <a href="{% url 'home' %}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">#}
-{#                <img src="/static/logo.png" class="bi me-2" width="30" height="30" aria-label="Double Quotes">#}
-{#            </a>#}
-{#            <a class="navbar-brand text-light" href="{% url 'home' %}">Double Quotes</a>#}
-{#            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">#}
-{#                <li class="nav-item">#}
-{#                    <a class="nav-link text-light active" aria-current="page" href="{% url 'quotes:quotes_list' %}">Лента</a>#}
-{#                </li>#}
-{#                <li class="nav-item">#}
-{#                    <a class="nav-link text-light active" aria-current="page" href="{% url 'quotes:authors_list' %}">Авторы</a>#}
-{#                </li>#}
-{#            </ul>#}
-{##}
-{#<div class="text-end">#}
-{#<button type="button" class="btn btn-outline-light me-2">Войти</button>#}
-{#<button type="button" class="btn btn-warning">Регистрация</button>#}
-{#</div>#}
-{#</div>#}
-{#</div>#}
-{#</header>#}
-
-
-
 <nav class="navbar navbar-expand-lg bg-dark">
-    <div class="container">
+    <div class="container-fluid">
         <a class="navbar-brand text-light" href="{% url 'home' %}">Double Quotes</a>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
@@ -36,6 +10,17 @@
                 <li class="nav-item">
                     <a class="nav-link text-light active" aria-current="page" href="{% url 'quotes:authors_list' %}">Авторы</a>
                 </li>
+                {% if user.is_staff %}
+                <li class="nav-item">
+                    <a class="nav-link text-light active" aria-current="page" href="{% url 'quotes:author_create' %}">+ автор</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light active" aria-current="page" href="{% url 'quotes:source_create' %}">+ источник</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light active" aria-current="page" href="{% url 'quotes:quote_create' %}">+ цитата</a>
+                </li>
+                {% endif %}
             </ul>
         </div>
         {% if request.user.is_authenticated %}
