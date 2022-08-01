@@ -14,7 +14,6 @@ h2 {
 h3 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
-    font-style: italic;
 }
 
 h4,
@@ -130,10 +129,8 @@ section {
   height: 64px;
   padding-top: 7px;
   text-align: center;
-  /*Меняем тут цвет*/
   background-color: #ffffff;
   border-radius: 50%;
-  text-align: center;
   border: 5px solid #ffffff;
   transition: 0.7s;
   display: inline-block;
@@ -149,7 +146,6 @@ section {
   font-family: 'Montserrat', sans-serif;
   font-weight: 800;
   font-size: 20px;
-  font-style: italic;
   text-align: center;
 }
 
@@ -178,4 +174,25 @@ section {
   .authors {
     background-attachment: scroll;
   }
+}
+
+.quote-icon-card {
+  font-size: 25px;
+  color: #212121;
+  width: 54px;
+  height: 54px;
+  padding-top: 12px;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 35%;
+  border: 2px solid #212121;
+  transition: 0.7s;
+  display: inline-block;
+}
+
+.quote-icon-card:active {
+  font-size: 32px;
+  padding-top: 12px;
+  background: #303030;
+  color: #ffffff;
 }
