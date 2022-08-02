@@ -27,28 +27,18 @@
                             <div class="card-body">
                                 <h5>{{ quote.text|linebreaks }}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">{{ quote.year }} | {{ quote.source }}</h6>
-                                {% with total_bookmarks=quote.users_bookmarks.count users_bookmarks=quote.users_bookmarks.all %}
-                                <p>Цитату добавили в закладки {{ total_bookmarks }} пользователей</p>
-                                <a href="#" data-id="{{ quote.id }}"
-                                   data-action="{% if request.user in users_bookmarks %}delete{% else %}add{% endif %}_bookmark"
-                                   class="like button">
-                                    {% if request.user not in users_bookmarks %}
-                                          В закладки
-                                    {% else %}
-                                        Удалить из закладок
-                                    {% endif %}
-                                </a>
-                                {%  endwith %}
-{#                                <div class="row">#}
-{#                                    <div class="col-sm-1">#}
-{#                                        <div class="quote-icon-card">#}
-{#                                        <i class='bx bxs-quote-alt-left'></i>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                    <div class="col-sm-4">#}
-{#                                        в закладки#}
-{#                                    </div>#}
-{#                                </div>#}
+                               <!-- LIKES -->
+                                <div class="pr-2">
+                                    <span class="like-count{{ quote.id }}">{{ quote.likes.count }}</span>
+                                    {% csrf_token %}
+                                    <button class="btn btn-link text-dark p-0 border-0 btn-outline-light" id="like-button" value="{{ quote.id }}">
+                                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                    </svg>
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
@@ -71,4 +61,44 @@
         </div>
     </section>
 
+    <script>
+    $(document).on('click', '#like-button', function (e) {
+        e.preventDefault()
+        const quote_id = $(this).attr('value')
+
+        {#let res;#}
+        {#const likes = $(`.like-count${quote_id}`).text()#}
+
+    $.ajax({
+        type: 'POST',
+        url: '{% url "quotes:add_like" %}',
+        data: {
+            quote_id: quote_id,
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            action: 'post'
+        },
+        success: function (response) {
+            $(`.like-count${quote_id}`).text(response['result'])
+        }
+
+        });
+    })
+
+
+
+    </script>
+
+
 {% endblock content %}
+
+{#<div class="pr-2">#}
+{#<span class="" id="like_count">{{ quote.likes.count }}</span>#}
+{#{% csrf_token %}#}
+{#<button class="btn btn-link text-dark p-0 border-0 btn-outline-light" id="like-button" value="{{ quote.id }}">#}
+{#<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor"#}
+{#    xmlns="http://www.w3.org/2000/svg">#}
+{#<path fill-rule="evenodd"#}
+{#    d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />#}
+{#</svg>#}
+{#</button>#}
+{#</div>#}

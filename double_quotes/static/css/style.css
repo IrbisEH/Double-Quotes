@@ -31,39 +31,6 @@ section {
   padding: 60px 0;
 }
 
-/*.section-bg {*/
-/*  background-color: #F8F8F8;*/
-/*}*/
-
-/*.section-title {*/
-/*  text-align: center;*/
-/*  padding-bottom: 20px;*/
-/*}*/
-
-/*.section-title h2 {*/
-/*  font-size: 32px;*/
-/*  font-weight: 300;*/
-/*  margin-bottom: 20px;*/
-/*  padding-bottom: 15px;*/
-/*  position: relative;*/
-/*}*/
-
-/*.section-title h2::after {*/
-/*  content: "";*/
-/*  position: absolute;*/
-/*  display: block;*/
-/*  width: 80px;*/
-/*  height: 1px;*/
-/*  background: #fd680e;*/
-/*  bottom: 0;*/
-/*  left: calc(50% - 40px);*/
-/*}*/
-
-/*.section-title p {*/
-/*  margin-bottom: 0;*/
-/*  font-style: italic;*/
-/*  color: #666666;*/
-/*}*/
 
 /*--------------------------------------------------------------
 # Home Top Section
@@ -72,8 +39,6 @@ section {
 #home {
   width: 100%;
   height: 40vh;
-  /*background: url("../img/hero-bg.jpg") center center;*/
-  /*background-size: cover;*/
   position: relative;
   margin-top: 40px;
   z-index: 9;

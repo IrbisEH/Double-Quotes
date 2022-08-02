@@ -4,6 +4,7 @@ from django.urls import reverse, reverse_lazy
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 
 from .models import Quote, Author, QuoteSource
 from .forms import QuoteForm, AuthorForm, QuoteSourceForm
@@ -60,22 +61,25 @@ def author_detail(request, id):
     return render(request, template, context)
 
 
-# @login_required
+@login_required
 @require_POST
-def quote_to_bookmark(request):
-    quote_id = request.POST.get('id')
-    action = request.POST.get('action')
-    if quote_id and action:
-        try:
-            quote = Quote.objects.get(id=quote_id)
-            if action == 'add_bookmark':
-                quote.users_bookmarks.add(request.user)
-            else:
-                quote.users_bookmarks.remove(request.user)
-            return JsonResponse({'status': 'ok'})
-        except:
-            pass
-    return JsonResponse({'status': 'ok'})
+def add_like(request):
+    if request.method == 'POST':
+        result = ''
+        id = int(request.POST.get('quote_id'))
+        quote = get_object_or_404(Quote, id=id)
+        if quote.likes.filter(id=request.user.id).exists():
+            quote.likes.remove(request.user)
+            quote.like_count -= 1
+            result = quote.like_count
+            quote.save()
+        else:
+            quote.likes.add(request.user)
+            quote.like_count += 1
+            result = quote.like_count
+            quote.save()
+        print(result)
+        return JsonResponse({'result': result, })
 
 
 

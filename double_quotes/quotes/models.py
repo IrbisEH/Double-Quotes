@@ -65,11 +65,13 @@ class Quote(models.Model):
         on_delete=models.CASCADE,
         related_name='quotes'
     )
-    users_bookmarks = models.ManyToManyField(
+    likes = models.ManyToManyField(
         User,
-        related_name='quotes_bookmarks',
-        blank=True
+        related_name='like',
+        default=None,
+        blank=True,
     )
+    like_count = models.BigIntegerField(default='0')
     created = models.DateTimeField(
         auto_now_add=True
     )
