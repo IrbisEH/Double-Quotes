@@ -27,6 +27,18 @@
                             <div class="card-body">
                                 <h5>{{ quote.text|linebreaks }}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">{{ quote.year }} | {{ quote.source }}</h6>
+                                {% with total_bookmarks=quote.users_bookmarks.count users_bookmarks=quote.users_bookmarks.all %}
+                                <p>Цитату добавили в закладки {{ total_bookmarks }} пользователей</p>
+                                <a href="#" data-id="{{ quote.id }}"
+                                   data-action="{% if request.user in users_bookmarks %}delete{% else %}add{% endif %}_bookmark"
+                                   class="like button">
+                                    {% if request.user not in users_bookmarks %}
+                                          В закладки
+                                    {% else %}
+                                        Удалить из закладок
+                                    {% endif %}
+                                </a>
+                                {%  endwith %}
 {#                                <div class="row">#}
 {#                                    <div class="col-sm-1">#}
 {#                                        <div class="quote-icon-card">#}

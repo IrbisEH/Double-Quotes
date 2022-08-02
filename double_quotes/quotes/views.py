@@ -2,6 +2,8 @@ from django.views.generic import ListView
 from django.views.generic.edit import CreateView
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 
 from .models import Quote, Author, QuoteSource
 from .forms import QuoteForm, AuthorForm, QuoteSourceForm
@@ -11,9 +13,11 @@ class QuotesListView(ListView):
     model = Quote
     template_name = 'quotes_list.html'
 
+
 class AuthorsListView(ListView):
     model = Author
     template_name = 'authors_list.html'
+
 
 def quote_detail(request, id):
     quote = Quote.objects.get(id=id)
@@ -22,8 +26,6 @@ def quote_detail(request, id):
         'quote': quote
     }
     return render(request, template_name, context)
-
-
 
 
 class QuoteCreateView(CreateView):
@@ -56,6 +58,25 @@ def author_detail(request, id):
         'quotes': author_quotes
     }
     return render(request, template, context)
+
+
+# @login_required
+@require_POST
+def quote_to_bookmark(request):
+    quote_id = request.POST.get('id')
+    action = request.POST.get('action')
+    if quote_id and action:
+        try:
+            quote = Quote.objects.get(id=quote_id)
+            if action == 'add_bookmark':
+                quote.users_bookmarks.add(request.user)
+            else:
+                quote.users_bookmarks.remove(request.user)
+            return JsonResponse({'status': 'ok'})
+        except:
+            pass
+    return JsonResponse({'status': 'ok'})
+
 
 
 def create_all_view(request):

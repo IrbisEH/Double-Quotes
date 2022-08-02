@@ -1,5 +1,5 @@
 from django.db import models
-
+from users.models import User
 
 class GroupAuthor(models.Model):
     title = models.CharField(max_length=50)
@@ -64,6 +64,11 @@ class Quote(models.Model):
         Author,
         on_delete=models.CASCADE,
         related_name='quotes'
+    )
+    users_bookmarks = models.ManyToManyField(
+        User,
+        related_name='quotes_bookmarks',
+        blank=True
     )
     created = models.DateTimeField(
         auto_now_add=True
