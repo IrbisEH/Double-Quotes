@@ -78,7 +78,6 @@ def add_like(request):
             quote.like_count += 1
             result = quote.like_count
             quote.save()
-        print(result)
         return JsonResponse({'result': result, })
 
 
