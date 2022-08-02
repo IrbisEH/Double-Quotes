@@ -57,13 +57,13 @@ class Quote(models.Model):
     source = models.ForeignKey(
         QuoteSource,
         on_delete=models.CASCADE,
-        related_name='quotes'
+        related_name='source_quotes'
     )
     year = models.IntegerField()
     author = models.ForeignKey(
         Author,
         on_delete=models.CASCADE,
-        related_name='quotes'
+        related_name='author_quotes'
     )
     likes = models.ManyToManyField(
         User,
