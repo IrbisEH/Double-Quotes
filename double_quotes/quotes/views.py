@@ -5,6 +5,7 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
+from core.common.decorators import ajax_required
 
 from .models import Quote, Author, QuoteSource
 from .forms import QuoteForm, AuthorForm, QuoteSourceForm
@@ -61,6 +62,7 @@ def author_detail(request, id):
     return render(request, template, context)
 
 
+@ajax_required
 @login_required
 @require_POST
 def add_like(request):
