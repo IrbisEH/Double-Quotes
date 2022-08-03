@@ -36,7 +36,7 @@
                                 <p class="card-text">{{ author.description|truncatewords:28|linebreaks }}</p>
                             </div>
                             <div class="card-footer">
-                                <small class="text-muted">цитат: {{ author.quotes.count }}</small>
+                                <small class="text-muted">цитат: {{ author.author_quotes.count }}</small>
                                 <small class="text-muted">источников: {{ author.quote_sources.count }}</small>
                             </div>
                         </div>

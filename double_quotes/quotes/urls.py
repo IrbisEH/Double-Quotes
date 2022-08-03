@@ -22,5 +22,6 @@ urlpatterns = [
     path('author_create/', AuthorCreateView.as_view(), name='author_create'),
     path('authors_list/', AuthorsListView.as_view(), name='authors_list'),
     path('source_create/', SourceCreateView.as_view(), name='source_create'),
-    path('add_like/', views.add_like, name='add_like')
+    path('add_like/', views.add_like, name='add_like'),
+    path('add_share/', views.add_share, name='add_share'),
 ]

@@ -83,6 +83,27 @@ def add_like(request):
         return JsonResponse({'result': result, })
 
 
+@ajax_required
+@login_required
+@require_POST
+def add_share(request):
+    if request.method == 'POST':
+        result = ''
+        id = int(request.POST.get('quote_id'))
+        quote = get_object_or_404(Quote, id=id)
+        if quote.shares.filter(id=request.user.id).exists():
+            quote.shares.remove(request.user)
+            quote.share_count -= 1
+            result = quote.share_count
+            quote.save()
+        else:
+            quote.shares.add(request.user)
+            quote.share_count += 1
+            result = quote.share_count
+            quote.save()
+        return JsonResponse({'result': result, })
+
+
 
 def create_all_view(request):
     template = 'create_all.html'

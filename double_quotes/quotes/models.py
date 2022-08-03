@@ -72,6 +72,13 @@ class Quote(models.Model):
         blank=True,
     )
     like_count = models.BigIntegerField(default='0')
+    shares = models.ManyToManyField(
+        User,
+        related_name='share',
+        default=None,
+        blank=True,
+    )
+    share_count = models.BigIntegerField(default='0')
     created = models.DateTimeField(
         auto_now_add=True
     )
