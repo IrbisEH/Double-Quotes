@@ -4,16 +4,18 @@
 {% block title %}{{ author }}{% endblock title %}
 
 {% block content %}
-    <section id="authors" class="authors section-bg">
+    <section>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-7">
-                    <div class="card">
-                        {% thumbnail author.image "600x400" as im %}
+                    <!-- Карточка с автором -->
+                    <div class="author_detail">
+                        <div class="card">
+                            {% thumbnail author.image "600x400" as im %}
                                 <img src="{{ im.url }}" class="card-img-top">
-                                {% endthumbnail %}
+                            {% endthumbnail %}
                             <div class="card-body">
-                                <h3>{{ author.full_name }}</h3>
+                                <h3 class="card-title">{{ author.full_name }}</h3>
                                 <p class="card-text">{{ author.description|truncatewords:28|linebreaks }}</p>
                                 <p class="card-text"><small class="text-muted"><a href="{{ author.link }}">Подробнее на Wikipedia</a></small></p>
                             </div>
@@ -22,45 +24,44 @@
                                 <small class="text-muted">источников: {{ author.quote_sources.count }}</small>
                             </div>
                         </div>
+                    </div>
+                    <!-- Карточки с цитатами -->
+                    <div class="quotes">
                     {% for quote in quotes %}
-                        <div class="card p-2">
+
+                        <div class="card">
                             <div class="card-body">
                                 <h5>{{ quote.text|linebreaks }}</h5>
+                                <p>{{ quote.year }} | {{ quote.source }}</p>
                                 <hr>
-{#                                <h6 class="card-subtitle mb-2 text-muted">{{ quote.year }} | {{ quote.source }}</h6>#}
-                                <div class="row justify-content-between">
-                                    <!-- LIKES -->
-                                    <div class="col-md-4">
-                                    {% csrf_token %}
-                                    <button class="btn btn-link text-dark p-0 border-0 btn-outline-light" id="like-button" value="{{ quote.id }}">
-                                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor">
-                                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12ZM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2Z"/>
-                                            <path d="M8 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"/>
-                                        </svg>
-                                    </button>
-                                    <span class="like-count{{ quote.id }}">{{ quote.likes.count }}</span>
-{#                                    </div>#}
-                                    <!-- LIKES -->
-                                    <!-- SHARE -->
-{#                                    <div class="col-sm-2">#}
-                                    <button class="btn btn-link text-dark p-0 border-0 btn-outline-light" id="share-button" value="{{ quote.id }}">
-                                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-share" fill="currentColor">
-                                        <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
-                                    </svg>
-                                    </button>
-                                    <span class="share-count{{ quote.id }}">{{ quote.likes.count }}</span>
-                                    <!-- SHARE -->
-                                    </div>
-                                    <div class="col-md-5">
-                                        <p class="card-subtitle mb-2 text-muted">{{ quote.year }} | {{ quote.source }}</p>
-                                    </div>
+                                <!-- Likes -->
+                                <!-- if user is authenticated -->
+                                {% if user.is_authenticated %}
+                                {% csrf_token %}
+                                <!-- if user liked quote -->
+                                {% with users_liked=quote.likes.all %}
+                                <div id="like-button" class="quote-like {% if user in users_liked %}myClass{% endif %}" value="{{ quote.id }}">
+                                    <i class='bx bxs-quote-alt-left' id="icon"></i>
+                                    <p>Нравится <span class="like-count{{ quote.id }}">{{ quote.like_count }}</span></p>
                                 </div>
+                                {% endwith %}
+                                {% else %}
+                                <div id="like-button-no-click" class="quote-like">
+                                    <i class='bx bxs-quote-alt-left' id="icon"></i>
+                                    <p>Нравится <span class="like-count">{{ quote.like_count }}</span></p>
+                                </div>
+                                {%  endif %}
+
+
+
+
                             </div>
                         </div>
-
                     {% endfor %}
+                    </div>
 
                 </div>
+                 <!-- Правый блок -->
                 <div class="col-md-3">
                     <div class="position-sticky" style="top: 2rem;">
                         <div class="p-4 mb-3 bg-light rounded">
@@ -76,13 +77,17 @@
             </div>
         </div>
     </section>
-
     <script>
     $(document).on('click', '#like-button', function (e) {
-        e.preventDefault()
-        const quote_id = $(this).attr('value')
+        e.preventDefault();
 
+        const quote_id = $(this).attr('value');
 
+        if (this.classList.contains('myClass')) {
+            $(this).removeClass('myClass');
+        } else {
+            $(this).addClass('myClass');
+        }
     $.ajax({
         type: 'POST',
         url: '{% url "quotes:add_like" %}',
@@ -92,41 +97,42 @@
             action: 'post'
         },
         success: function (response) {
-            $(`.bi bi-heart${quote_id}`).text(response['result'])
             $(`.like-count${quote_id}`).text(response['result'])
         }
 
         });
-    })
+      })
 
-    $(document).on('click', '#share-button', function (e) {
-        e.preventDefault()
-        const quote_id = $(this).attr('value')
-
-
-    $.ajax({
-        type: 'POST',
-        url: '{% url "quotes:add_share" %}',
-        data: {
-            quote_id: quote_id,
-            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-            action: 'post'
-        },
-        success: function (response) {
-            $(`.bi bi-share${quote_id}`).text(response['result'])
-            $(`.share-count${quote_id}`).text(response['result'])
-        }
-
-        });
-    })
+    {#$(document).on('click', '#share-button', function (e) {#}
+    {#    e.preventDefault()#}
+    {#    const quote_id = $(this).attr('value')#}
+    {##}
+    {##}
+    {#$.ajax({#}
+    {#    type: 'POST',#}
+    {#    url: '{% url "quotes:add_share" %}',#}
+    {#    data: {#}
+    {#        quote_id: quote_id,#}
+    {#        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),#}
+    {#        action: 'post'#}
+    {#    },#}
+    {#    success: function (response) {#}
+    {##}
+    {#        $(`.share-count${quote_id}`).text(response['result'])#}
+    {#    }#}
+    {##}
+    {#    });#}
+    {# }) #}
 
     </script>
 
 
 {% endblock content %}
 
-{#<div class="pr-2">#}
+
+<div class="row justify-content-between">
 {#                                    <!-- LIKES -->#}
+{#                                    <div class="col-md-4">#}
 {#                                    {% csrf_token %}#}
 {#                                    <button class="btn btn-link text-dark p-0 border-0 btn-outline-light" id="like-button" value="{{ quote.id }}">#}
 {#                                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor">#}
@@ -135,14 +141,19 @@
 {#                                        </svg>#}
 {#                                    </button>#}
 {#                                    <span class="like-count{{ quote.id }}">{{ quote.likes.count }}</span>#}
+{#                                    </div>#}
 {#                                    <!-- LIKES -->#}
 {#                                    <!-- SHARE -->#}
+{#                                    <div class="col-sm-2">#}
 {#                                    <button class="btn btn-link text-dark p-0 border-0 btn-outline-light" id="share-button" value="{{ quote.id }}">#}
-{#                                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor">#}
+{#                                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-share" fill="currentColor">#}
 {#                                        <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>#}
 {#                                    </svg>#}
 {#                                    </button>#}
 {#                                    <span class="share-count{{ quote.id }}">{{ quote.likes.count }}</span>#}
 {#                                    <!-- SHARE -->#}
+{#                                    </div>#}
+{#                                    <div class="col-md-5">#}
+{#                                        <p class="card-subtitle mb-2 text-muted">{{ quote.year }} | {{ quote.source }}</p>#}
+{#                                    </div>#}
 {#                                </div>#}
-{#                            </div>#}

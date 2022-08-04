@@ -1,0 +1,207 @@
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 70px;
+    font-weight: 700;
+    line-height: 100%;
+}
+
+h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+}
+
+h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+}
+
+h5 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 200;
+}
+
+section {
+    padding: 0 0 60px;
+}
+
+/*--------------------------------------------------------------
+# Main Page
+--------------------------------------------------------------*/
+
+.home-container {
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.home-container h5 {
+    color: #444444;
+}
+
+
+.home-container p {
+    margin-top: 20px;
+    font-size: 15px;
+    color: #444444;
+}
+
+.authors .card {
+    border-radius: 5px;
+    border: 0;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.authors .card-body {
+    padding-top: 12px;
+}
+
+.authors .card-title {
+    height: 35px;
+    padding-top: -15px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    text-align: center;
+}
+
+.authors .card-text {
+    color: #5e5e5e;
+    line-height: 200%;
+    /*height: 10px;*/
+}
+
+.authors .card-icon {
+    text-align: center;
+    margin-top: -34px;
+}
+
+.authors .card-icon i {
+    font-size: 42px;
+    color: #212121;
+    width: 64px;
+    height: 64px;
+    padding-top: 7px;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 50%;
+    border: 5px solid #ffffff;
+    transition: 0.7s;
+    display: inline-block;
+}
+
+.authors .card:hover .card-icon i {
+    font-size: 32px;
+    padding-top: 12px;
+    background: #303030;
+    color: #ffffff;
+}
+
+/*--------------------------------------------------------------
+# Author detail Page
+--------------------------------------------------------------*/
+
+/*карточка автора*/
+
+.author_detail .card {
+    border-radius: 5px;
+    border: 0;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.author_detail .card-body {
+    padding-top: 12px;
+}
+
+.author_detail .card-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 25px;
+    margin-top: 15px;
+}
+
+.author_detail .card-text {
+    color: #5e5e5e;
+    line-height: 200%;
+    /*height: 10px;*/
+}
+
+/*карточки цитат автора*/
+
+.quotes .card {
+    border-radius: 5px;
+    border: 0;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.quotes .card-body {
+    margin-top: 10px;
+}
+
+.quotes .quote-like {
+    width: 100%;
+    display: flex;
+}
+
+.quotes .quote-like i {
+    font-size: 25px;
+    color: #212121;
+    width: 30px;
+    height: 30px;
+    padding-top: 3px;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 50%;
+    border: 1px solid #ffffff;
+    transition: 0.4s;
+    display: inline-block;
+}
+
+
+.quotes .myClass i {
+    font-size: 15px;
+    padding-top: 7px;
+    background: #303030;
+    color: #ffffff;
+}
+
+.quotes .quote-like p {
+    font-size: 15px;
+    padding-top: 5px;
+    padding-left: 5px;
+
+    display: inline-block;
+}
+
+/*.quotes .quote-share i {*/
+/*    font-size: 20px;*/
+/*    color: #212121;*/
+/*    width: 30px;*/
+/*    height: 30px;*/
+/*    padding-top: 3px;*/
+/*    text-align: center;*/
+/*    background-color: #ffffff;*/
+/*    border-radius: 50%;*/
+/*    border: 1px solid #ffffff;*/
+/*    transition: 0.4s;*/
+/*    !*display: inline-block;*!*/
+/*}*/
+
+/*.quotes .col:hover .quote-like i {*/
+/*    font-size: 15px;*/
+/*    padding-top: 7px;*/
+/*    background: #303030;*/
+/*    color: #ffffff;*/
+/*}*/
+
+
+

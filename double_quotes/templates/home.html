@@ -5,31 +5,27 @@
 {% block title %}Главная{% endblock title %}
 
 {% block content %}
-    <section id="home">
+    <section>
         <div class="home-container">
-            <h6 class="text-muted">учебный Django проект</h6>
+            <h5>учебный Django проект</h5>
             <h1>Double Quotes</h1>
             <h2>cервис с любимыми цитатами</h2>
-            <div class="stat">
-                <a>цитат: {% total_quotes %}</a>
-                <a>авторов: {% total_authors %}</a>
-                <a>источников: {% total_quote_sources %}</a>
-            </div>
+            <p>цитат: {% total_quotes %} | авторов: {% total_authors %} | источников: {% total_quote_sources %}</p>
         </div>
     </section>
-    <section id="authors" class="authors section-bg">
-        <div class="container">
+    <section>
+        <div class="container authors">
             <div class="row">
                 {% for author in authors %}
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
                         <div class="card">
                             <a href="{% url 'quotes:author_detail' author.pk %}">
-                            {% thumbnail author.image "600x400" as im %}
-                            <img src="{{ im.url }}" class="card-img-top">
-                            {% endthumbnail %}
-                            <div class="card-icon">
-                                <i class='bx bxs-quote-alt-left'></i>
-                            </div>
+                                {% thumbnail author.image "600x400" as im %}
+                                    <img src="{{ im.url }}" class="card-img-top">
+                                {% endthumbnail %}
+                                <div class="card-icon">
+                                    <i class='bx bxs-quote-alt-left'></i>
+                                </div>
                             </a>
                             <div class="card-body">
                                 <h4 class="card-title">{{ author.full_name }}</h4>

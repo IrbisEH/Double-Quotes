@@ -23,46 +23,49 @@
 {#</header>#}
 
 
+<header>
+    <section>
+        <nav class="navbar navbar-expand-lg bg-dark">
+            <div class="container">
+                <a class="navbar-brand text-light" href="{% url 'home' %}">Double Quotes</a>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
 
-<nav class="navbar navbar-expand-lg bg-dark">
-    <div class="container">
-        <a class="navbar-brand text-light" href="{% url 'home' %}">Double Quotes</a>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-
-                <li class="nav-item">
-                    <a class="nav-link text-light active" aria-current="page" href="{% url 'quotes:quotes_list' %}">Лента</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light active" aria-current="page" href="{% url 'quotes:authors_list' %}">Авторы</a>
-                </li>
-            </ul>
-        </div>
-        {% if request.user.is_authenticated %}
-        <div class="nav justify-content-end">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-light"
-                   href="#"
-                   id="navbarDropdownMenuLink"
-                   role="button"
-                   data-bs-toggle="dropdown"
-                   data-bs-display="static"
-                   aria-expanded="false">
-                    {{ user.username }}
-                </a>
-                <!-- ВСТАВИТЬ ССЫЛКУ -->
-                <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdownMenuLink">
-                    <li><a class="dropdown-item" href="{% url 'users:password_change' %}">Поменять пароль</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="{% url 'users:logout' %}">Выйти</a></li>
-                </ul>
-            </li>
-        </div>
-        {% else %}
-        <div class="nav justify-content-end">
-            <a class="nav-link text-light active" aria-current="page" href="{% url 'users:login' %}">Войти</a>
-            <a class="nav-link text-light active" aria-current="page" href="{% url 'users:signup' %}">Регистрация</a>
-        </div>
-        {% endif %}
-    </div>
-</nav>
+                        <li class="nav-item">
+                            <a class="nav-link text-light active" aria-current="page" href="{% url 'quotes:quotes_list' %}">Лента</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light active" aria-current="page" href="{% url 'quotes:authors_list' %}">Авторы</a>
+                        </li>
+                    </ul>
+                </div>
+                {% if request.user.is_authenticated %}
+                <div class="nav justify-content-end">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-light"
+                           href="#"
+                           id="navbarDropdownMenuLink"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           data-bs-display="static"
+                           aria-expanded="false">
+                            {{ user.username }}
+                        </a>
+                        <!-- ВСТАВИТЬ ССЫЛКУ -->
+                        <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="{% url 'users:password_change' %}">Поменять пароль</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'users:logout' %}">Выйти</a></li>
+                        </ul>
+                    </li>
+                </div>
+                {% else %}
+                <div class="nav justify-content-end">
+                    <a class="nav-link text-light active" aria-current="page" href="{% url 'users:login' %}">Войти</a>
+                    <a class="nav-link text-light active" aria-current="page" href="{% url 'users:signup' %}">Регистрация</a>
+                </div>
+                {% endif %}
+            </div>
+        </nav>
+    </section>
+</header>
