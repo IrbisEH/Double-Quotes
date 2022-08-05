@@ -155,6 +155,14 @@ section {
     text-decoration: None;
 }
 
+.quotes .card-header img{
+    padding: 3px;
+    /*margin: 3px;*/
+    border-radius: 50%;
+    border: 2px solid #797979;
+    /*border-radius: 50%;*/
+}
+
 .quotes .card-body {
     margin-top: 10px;
 }
