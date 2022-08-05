@@ -52,7 +52,9 @@
                             {{ user.username }}
                         </a>
                         <!-- ВСТАВИТЬ ССЫЛКУ -->
-                        <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdownMenuLink">
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="{% url 'quotes:quotes_list' %}">Лента цитат</a></li>
+                            <li><a class="dropdown-item" href="{% url 'quotes:authors_list' %}">Авторы</a></li>
                             <li><a class="dropdown-item" href="{% url 'users:password_change' %}">Поменять пароль</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="{% url 'users:logout' %}">Выйти</a></li>
