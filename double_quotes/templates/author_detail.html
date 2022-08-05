@@ -40,16 +40,16 @@
                                 {% csrf_token %}
                                 <!-- if user liked quote -->
                                 {% with users_liked=quote.likes.all %}
-                                <div id="like-button" class="quote-like {% if user in users_liked %}myClass{% endif %}" value="{{ quote.id }}">
+                                <a href="." id="like-button" class="quote-like {% if user in users_liked %}myClass{% endif %}" value="{{ quote.id }}">
                                     <i class='bx bxs-quote-alt-left' id="icon"></i>
-                                    <p>Нравится <span class="like-count{{ quote.id }}">{{ quote.like_count }}</span></p>
-                                </div>
+                                    <p >Нравится <span class="like-count{{ quote.id }}">{{ quote.like_count }}</span></p>
+                                </a>
                                 {% endwith %}
                                 {% else %}
-                                <div id="like-button-no-click" class="quote-like">
+                                <a href="." id="like-button-no-click" class="quote-like">
                                     <i class='bx bxs-quote-alt-left' id="icon"></i>
-                                    <p>Нравится <span class="like-count">{{ quote.like_count }}</span></p>
-                                </div>
+                                    <a>Нравится <span class="like-count">{{ quote.like_count }}</span></a>
+                                </a>
                                 {%  endif %}
 
 
