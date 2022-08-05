@@ -148,7 +148,7 @@ section {
 }
 
 .quotes .quote-like {
-    width: 30%;
+    /*width: 30%;*/
     display: flex;
     text-decoration: None;
 }
@@ -181,6 +181,15 @@ section {
     padding-top: 5px;
     padding-left: 5px;
     display: inline-block;
+}
+
+.quotes .quote-share {
+    /*width: 30%;*/
+    float: right;
+    padding-top: 3px;
+    display: flex;
+    text-decoration: None;
+    /*display: inline-block;*/
 }
 
 /*.quotes .quote-share i {*/

@@ -34,11 +34,13 @@
                                 <h5>{{ quote.text|linebreaks }}</h5>
                                 <p>{{ quote.year }} | {{ quote.source }}</p>
                                 <hr>
-                                <!-- Likes -->
+                                <div class="row justify-content-between like-share">
+                                <!-- Like Button -->
                                 <!-- if user is authenticated -->
+                                <div class="col-5">
                                 {% if user.is_authenticated %}
                                 {% csrf_token %}
-                                <!-- if user liked quote -->
+                                <!-- if user liked quote or not -->
                                 {% with users_liked=quote.likes.all %}
                                 <a href="." id="like-button" class="quote-like {% if user in users_liked %}myClass{% endif %}" value="{{ quote.id }}">
                                     <i class='bx bxs-quote-alt-left' id="icon"></i>
@@ -46,15 +48,29 @@
                                 </a>
                                 {% endwith %}
                                 {% else %}
+                                <!-- if user is not authenticated -->
+                                <!-- Добавить Поп-ап на регистрацию -->
                                 <a href="." id="like-button-no-click" class="quote-like">
                                     <i class='bx bxs-quote-alt-left' id="icon"></i>
                                     <a>Нравится <span class="like-count">{{ quote.like_count }}</span></a>
                                 </a>
                                 {%  endif %}
+                                </div>
+                                <!-- Share Button -->
+                                <div class="col-4">
 
-
-
-
+                                    <div class="nav-item dropdown ms-sm-auto quote-share">
+                                    <a class="nav-link mb-0" href="#" id="cardShareAction" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-reply-fill flip-horizontal ps-1"></i>Поделиться
+                                    </a>
+                                    <!-- Card share action dropdown menu -->
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="cardShareAction" style="">
+                                    <li><a class="dropdown-item" href="#"> <i class="bi bi-link fa-fw pe-2"></i>Копирровать ссылку на цитату</a></li>
+                                    <li><a class="dropdown-item" href="#"> <i class='bx bxl-vk fa-fw pe-2' ></i>Опубликова в ВК</a></li>
+                                    </ul>
+                                    </div>
+                                </div>
+                            </div>
                             </div>
                         </div>
                     {% endfor %}
@@ -127,33 +143,5 @@
     </script>
 
 
+
 {% endblock content %}
-
-
-<div class="row justify-content-between">
-{#                                    <!-- LIKES -->#}
-{#                                    <div class="col-md-4">#}
-{#                                    {% csrf_token %}#}
-{#                                    <button class="btn btn-link text-dark p-0 border-0 btn-outline-light" id="like-button" value="{{ quote.id }}">#}
-{#                                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor">#}
-{#                                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12ZM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2Z"/>#}
-{#                                            <path d="M8 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"/>#}
-{#                                        </svg>#}
-{#                                    </button>#}
-{#                                    <span class="like-count{{ quote.id }}">{{ quote.likes.count }}</span>#}
-{#                                    </div>#}
-{#                                    <!-- LIKES -->#}
-{#                                    <!-- SHARE -->#}
-{#                                    <div class="col-sm-2">#}
-{#                                    <button class="btn btn-link text-dark p-0 border-0 btn-outline-light" id="share-button" value="{{ quote.id }}">#}
-{#                                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-share" fill="currentColor">#}
-{#                                        <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>#}
-{#                                    </svg>#}
-{#                                    </button>#}
-{#                                    <span class="share-count{{ quote.id }}">{{ quote.likes.count }}</span>#}
-{#                                    <!-- SHARE -->#}
-{#                                    </div>#}
-{#                                    <div class="col-md-5">#}
-{#                                        <p class="card-subtitle mb-2 text-muted">{{ quote.year }} | {{ quote.source }}</p>#}
-{#                                    </div>#}
-{#                                </div>#}
