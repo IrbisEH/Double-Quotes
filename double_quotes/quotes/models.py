@@ -83,6 +83,9 @@ class Quote(models.Model):
         auto_now_add=True
     )
 
+    def get_absolute_url(self):
+        pass
+
     def __str__(self):
         return self.text[:50]+'...'
 

@@ -65,33 +65,53 @@
                                     </a>
                                     <!-- Card share action dropdown menu -->
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="cardShareAction" style="">
-                                    <li><a class="dropdown-item" href="#"> <i class="bi bi-link fa-fw pe-2"></i>Копирровать ссылку на цитату</a></li>
                                     <li><a class="dropdown-item" href="#"> <i class='bx bxl-vk fa-fw pe-2' ></i>Опубликова в ВК</a></li>
+                                    <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                          <i class="bi bi-link fa-fw pe-2"></i>Копирровать ссылку на цитату
+                                        </button></li>
                                     </ul>
                                     </div>
                                 </div>
                             </div>
                             </div>
                         </div>
+                        <!-- Button trigger modal -->
                     {% endfor %}
                     </div>
-
                 </div>
                  <!-- Правый блок -->
-                <div class="col-md-3">
+                 <div class="col-md-3">
                     <div class="position-sticky" style="top: 2rem;">
                         <div class="p-4 mb-3 bg-light rounded">
-                            <h4>Мои закладки</h4>
-                                <br>
-                                <p>Всего цитата: __</p>
-                                <p>Топ автор: __</p>
-                                <p>Топ источник: __</p>
-
+                        <div class="right_block">
+                            <h4>{{ author }}</h4>
+                            <p class="right_block">Цитат: {{ quotes.count }}</p>
+                            <p class="right_block">Источников: {{ author.quote_sources.count }}</p>
+                            <p class="right_block">Лайков: {{ sum_of_likes }}</p>
+                        </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
+
+
+<!-- Modal -->
+{#<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
+{#<div class="modal-dialog modal-dialog-centered">#}
+{#<div class="modal-content">#}
+{#<div class="modal-header">#}
+{#<h5 class="modal-title" id="exampleModalLabel">Ссылка на цитату скопирована</h5>#}
+{#<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>#}
+{#</div>#}
+{#</div>#}
+{#</div>#}
+{#</div>#}
+
+
+
+
     </section>
     <script>
     $(document).on('click', '#like-button', function (e) {

@@ -54,10 +54,15 @@ class SourceCreateView(CreateView):
 def author_detail(request, id):
     author = get_object_or_404(Author, id=id)
     author_quotes = Quote.objects.all().filter(author=author)
+    sum_of_likes = 0
+    # всратый способ посчитать лайки, переделать запрос!!!
+    for quote in author_quotes:
+        sum_of_likes += quote.like_count
     template = 'author_detail.html'
     context = {
         'author': author,
-        'quotes': author_quotes
+        'quotes': author_quotes,
+        'sum_of_likes': sum_of_likes
     }
     return render(request, template, context)
 

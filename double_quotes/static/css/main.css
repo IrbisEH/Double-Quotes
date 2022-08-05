@@ -143,6 +143,18 @@ section {
     margin-bottom: 30px;
 }
 
+.quotes .card-header {
+    background: #ffffff;
+    border: 0;
+    margin-top: 6px;
+    /*padding: 10px;*/
+}
+
+.quotes .card-header a{
+    color: #212121;
+    text-decoration: None;
+}
+
 .quotes .card-body {
     margin-top: 10px;
 }
@@ -192,26 +204,11 @@ section {
     /*display: inline-block;*/
 }
 
-/*.quotes .quote-share i {*/
-/*    font-size: 20px;*/
-/*    color: #212121;*/
-/*    width: 30px;*/
-/*    height: 30px;*/
-/*    padding-top: 3px;*/
-/*    text-align: center;*/
-/*    background-color: #ffffff;*/
-/*    border-radius: 50%;*/
-/*    border: 1px solid #ffffff;*/
-/*    transition: 0.4s;*/
-/*    !*display: inline-block;*!*/
-/*}*/
-
-/*.quotes .col:hover .quote-like i {*/
-/*    font-size: 15px;*/
-/*    padding-top: 7px;*/
-/*    background: #303030;*/
-/*    color: #ffffff;*/
-/*}*/
+.right_block p {
+    color: #303030;
+    font-size: 15px;
+    margin-bottom: 0;
+}
 
 
 

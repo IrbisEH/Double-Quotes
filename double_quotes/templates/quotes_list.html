@@ -1,26 +1,120 @@
 {% extends 'base.html' %}
+{% load thumbnail %}
 
 {% block title %}
     Лента цитат
 {% endblock title %}
 
 {% block content %}
-<div class="col-md-8 offset-md-2 p-5">
-    <div>
-        {% for quote in object_list %}
-            <div class="card shadow-sm p-3 mb-3 bg-white rounded">
-                <div class="card-body">
-                    <h4 class="card-title">{{ quote.source }}</h4>
-                    <div class="callout p-2">
-                    <h5>{{ quote.text|linebreaks }}</h5>
+    <section>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-7">
+                    <!-- Карточки с цитатами -->
+                    <div class="quotes">
+                    {% for quote in object_list %}
+
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar avatar-story me-2">
+                                            <a href="{% url 'quotes:author_detail' quote.author.pk  %}">
+                                                {% thumbnail quote.author.image "60x60" crop="60%" as im %}
+                                                    <img class="avatar-img rounded-circle" src="{{ im.url }}">
+                                                {% endthumbnail %}
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <div class="nav nav-divider">
+                                                <h6 class="nav-item card-title mb-0"> <a href="{% url 'quotes:author_detail' quote.author.pk  %}">
+                                                {{ quote.author }}
+                                                </a></h6>
+                                          </div>
+                                          <p class="mb-0 small">{{ quote.year }} | {{ quote.source }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h5>{{ quote.text|linebreaks }}</h5>
+{#                                <p>{{ quote.year }} | {{ quote.source }}</p>#}
+                                <hr>
+                                <div class="row justify-content-between like-share">
+                                <!-- Like Button -->
+                                <!-- if user is authenticated -->
+                                <div class="col-5">
+                                {% if user.is_authenticated %}
+                                {% csrf_token %}
+                                <!-- if user liked quote or not -->
+                                {% with users_liked=quote.likes.all %}
+                                <a href="." id="like-button" class="quote-like {% if user in users_liked %}myClass{% endif %}" value="{{ quote.id }}">
+                                    <i class='bx bxs-quote-alt-left' id="icon"></i>
+                                    <p >Нравится <span class="like-count{{ quote.id }}">{{ quote.like_count }}</span></p>
+                                </a>
+                                {% endwith %}
+                                {% else %}
+                                <!-- if user is not authenticated -->
+                                <!-- Добавить Поп-ап на регистрацию -->
+                                <a href="." id="like-button-no-click" class="quote-like">
+                                    <i class='bx bxs-quote-alt-left' id="icon"></i>
+                                    <a>Нравится <span class="like-count">{{ quote.like_count }}</span></a>
+                                </a>
+                                {%  endif %}
+                                </div>
+                                <!-- Share Button -->
+                                <div class="col-5">
+
+                                    <div class="nav-item dropdown ms-sm-auto quote-share">
+                                    <a class="nav-link mb-0" href="#" id="cardShareAction" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-reply-fill flip-horizontal ps-1"></i>Поделиться
+                                    </a>
+                                    <!-- Card share action dropdown menu -->
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="cardShareAction" style="">
+                                    <li><a class="dropdown-item" href="#"> <i class='bx bxl-vk fa-fw pe-2' ></i>Опубликова в ВК</a></li>
+                                    <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                          <i class="bi bi-link fa-fw pe-2"></i>Копирровать ссылку на цитату
+                                        </button></li>
+                                    </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <!-- Button trigger modal -->
+                    {% endfor %}
                     </div>
-                    <h6 class="card-subtitle mb-2 text-muted">
-                        {{ quote.year }} | <a href="{% url 'quotes:author_detail' quote.author.pk %}">{{ quote.author }}</a>
-                    </h6>
                 </div>
             </div>
-            <br>
-        {% endfor %}
-    </div>
-</div>
+        </div>
+    </section>
+
+    <script>
+    $(document).on('click', '#like-button', function (e) {
+        e.preventDefault();
+
+        const quote_id = $(this).attr('value');
+
+        if (this.classList.contains('myClass')) {
+            $(this).removeClass('myClass');
+        } else {
+            $(this).addClass('myClass');
+        }
+    $.ajax({
+        type: 'POST',
+        url: '{% url "quotes:add_like" %}',
+        data: {
+            quote_id: quote_id,
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            action: 'post'
+        },
+        success: function (response) {
+            $(`.like-count${quote_id}`).text(response['result'])
+        }
+
+        });
+      })
+  </script>
+
+
 {% endblock content %}
